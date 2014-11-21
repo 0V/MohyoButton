@@ -1,0 +1,74 @@
+﻿<Window
+        x:Class="MohyoButton.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vms="clr-namespace:MohyoButton.ViewModels"
+        xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" 
+        AllowsTransparency="True" Background="Transparent" WindowStyle="None" Topmost="True"
+        Title="LOGIN" Height="200" Width="320" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.Resources>
+        
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle Name="ButtonBackground" Fill="#99404040" RadiusY="10" RadiusX="10" Stroke="#997C7C7C"/>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="ButtonBackground" Property="Fill" Value="#99E2E2E2"/>
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="True"/>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBackground" Property="Fill" Value="#44E2E2E2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBackground" Property="Fill" Value="#99E2E2E2"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="TextTemplate">
+            <TextBlock TextWrapping="Wrap" Text="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+    <Window.DataContext>
+        <vms:LoginViewModel/>
+    </Window.DataContext>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#F51F1F1F" Stroke="#99858585" RadiusX="10" RadiusY="10" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <!--Button Content="OK" Grid.Column="1" Margin="20" Style="{DynamicResource PolygonButtonStyle}"
+                 Command="{Binding PinRunCommand}" CommandParameter="{Binding ElementName=PinText}"/-->
+        <Button Content="OK" Grid.Column="1" Margin="0,30,30,25"
+                 Command="{Binding PinRunCommand}" CommandParameter="{Binding ElementName=PinText}"/>
+        <Button Name="CancelButton" Content="r" FontFamily="Marlett" Width="20" Height="20" Grid.Row="0" Grid.Column="1" 
+                Command="Close" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <ListBox Margin="10,0,10,10" VerticalAlignment="Stretch" Foreground="#FFCFCFCF" Background="#CC000000" Grid.ColumnSpan="2" Grid.Row="1" 
+                 ItemsSource="{Binding LogList}" ItemTemplate="{StaticResource TextTemplate}" />
+        <DockPanel Margin="10">
+            <TextBlock Margin="10" DockPanel.Dock="Top" Foreground="White">
+                Twitter のアカウントを認証します<LineBreak/>
+                PIN を入力してください
+            </TextBlock>
+            <TextBox x:Name="PinText" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10" ToolTip="PIN を入力" Background="#CCFFFFFF" BorderBrush="#FF8D8D8D" BorderThickness="2,1,2,1" SelectionBrush="#FFE2E2E2"/>
+        </DockPanel>
+    </Grid>
+</Window>
