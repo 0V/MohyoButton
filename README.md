@@ -1,4 +1,4 @@
-wMohyoButton
+MohyoButton
 ===========
 
 ワンクリックでもひょれるやつ 
