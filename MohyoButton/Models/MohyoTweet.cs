@@ -11,6 +11,21 @@ namespace MohyoButton.Models
     {
         public MohyoTweet()
         {
+            InitMohyoStrings();
+            PostFromUserList = false;
+        }
+
+        public MohyoTweet(IEnumerable<string> wordList)
+        {
+            if (!wordList.Any(x => !string.IsNullOrWhiteSpace(x)))
+                throw new ArgumentNullException();
+
+            _MohyoStrings = wordList.ToList();
+            PostFromUserList = true;
+        }
+
+        private void InitMohyoStrings()
+        {
             _MohyoStrings = new List<string> {
                 "もひょ",
                 "もひょっ",
@@ -33,15 +48,9 @@ namespace MohyoButton.Models
             };
         }
 
-        public MohyoTweet(IEnumerable<string> wordList)
-        {
-            if (!wordList.Any(x=>!string.IsNullOrWhiteSpace(x)))
-                throw new ArgumentNullException();
-
-            _MohyoStrings = wordList.ToList();
-        }
-
         private MT19937 mt = new MT19937((uint)(DateTime.Now.ToFileTimeUtc() % uint.MaxValue));
+
+        public bool PostFromUserList { get; private set; }
 
         private List<string> _MohyoStrings;
         public List<string> MohyoStrings
@@ -54,7 +63,10 @@ namespace MohyoButton.Models
         {
             try
             {
-                App.MohyoCount++;
+                if (!PostFromUserList)
+                {
+                    App.MohyoCount++;
+                }
                 var res = tokens.Statuses.UpdateAsync(status => MohyoStrings[GetRandomNumber()]);
                 return res;
             }
@@ -70,10 +82,18 @@ namespace MohyoButton.Models
         {
             try
             {
-                App.MohyoCount++;
-                addMessage = addMessage.Replace("[COUNT]", App.MohyoCount.ToString());
-                var res = tokens.Statuses.UpdateAsync(status => MohyoStrings[GetRandomNumber()] + addMessage);
-                return res;
+                if (!PostFromUserList)
+                {
+                    App.MohyoCount++;
+                    addMessage = addMessage.Replace("[COUNT]", App.MohyoCount.ToString());
+                    var res = tokens.Statuses.UpdateAsync(status => MohyoStrings[GetRandomNumber()] + addMessage);
+                    return res;
+                }
+                else
+                {
+                    var res = tokens.Statuses.UpdateAsync(status => MohyoStrings[GetRandomNumber()]);
+                    return res;
+                }
             }
             catch (TwitterException ex)
             {

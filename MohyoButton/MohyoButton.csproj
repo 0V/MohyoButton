@@ -69,7 +69,7 @@
     <Compile Include="Models\KeyInfo.cs" />
     <Compile Include="Models\KeyParser.cs" />
     <Compile Include="Models\MohyoTweet.cs" />
-    <Compile Include="Models\MT19973.cs" />
+    <Compile Include="Models\MT19937.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
