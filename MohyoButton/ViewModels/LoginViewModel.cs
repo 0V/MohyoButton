@@ -28,15 +28,14 @@ namespace MohyoButton.ViewModels
                 var token = OAuth.GetTokensAsync(App.Session, pin);
                 App.Token = token.Result;
                 new WpfMessageBox("認証に成功しました", MessageBoxButton.OK).ShowDialog();
-                Models.KeyParser.WriteKey("keyinfo.xml",App.Token,App.CountMessage,App.PostCountMessage);
+                Models.KeyParser.WriteKey("keyinfo.xml", App.Token, App.CountMessage, App.PostCountMessage, App.UserWordListName);
                 Window.GetWindow(text).Close();
             }
             catch
             {
-                new WpfMessageBox("認証に失敗しました\n\n再度認証してください",MessageBoxButton.OK).ShowDialog();
+                new WpfMessageBox("認証に失敗しました\n\n再度認証してください", MessageBoxButton.OK).ShowDialog();
                 Window.GetWindow(text).Close();
             }
-
         }
 
     }

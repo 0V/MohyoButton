@@ -31,12 +31,16 @@ namespace MohyoButton
         private static bool _PostCountMessage = true;
         public static bool PostCountMessage { get { return _PostCountMessage; } set { _PostCountMessage = value; } }
 
+        public static string _UserWordListName = "words.txt";
+        public static string UserWordListName { get { return _UserWordListName; } set { _UserWordListName = value; } }
+
         public static int MohyoCount
         {
             get { return MohyoButton.Properties.Settings.Default.MohyoCount; }
             set { MohyoButton.Properties.Settings.Default.MohyoCount = value; }
         }
-private void Application_Startup(object sender, StartupEventArgs e)
+
+        private void Application_Startup(object sender, StartupEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException += ((_sender, _e) =>
                 ShowErrorMessage((Exception)_e.ExceptionObject));

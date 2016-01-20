@@ -32,5 +32,10 @@ namespace MohyoButton.Models
         /// Post count message
         /// </summary>
         public bool PostCountMessage;
+        /// <summary>
+        /// User defined post word list
+        /// </summary>
+        public string UserWordListName;
+
     }
 }

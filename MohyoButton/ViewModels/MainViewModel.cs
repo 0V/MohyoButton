@@ -16,7 +16,8 @@ namespace MohyoButton.ViewModels
         public MainViewModel()
         {
             string wordsFileName = "words.txt";
-            try {
+            try
+            {
                 var list = Models.WordFileLoad.Load(wordsFileName);
                 if (list.Any(x => !string.IsNullOrWhiteSpace(x)))
                 {
@@ -28,13 +29,25 @@ namespace MohyoButton.ViewModels
                     mohyoTweet = new Models.MohyoTweet();
                 }
             }
-            catch (FileLoadException fe) {
+            catch (FileLoadException fe)
+            {
                 mohyoTweet = new Models.MohyoTweet();
             }
 
         }
 
+        
+        private RelayCommand _CloseCommand;
+        public RelayCommand CloseCommand
+        {
+            get { return _CloseCommand ?? (_CloseCommand = new RelayCommand(Close)); }
+            set { _CloseCommand = value; }
+        }
 
+        public void Close(object obj)
+        {
+            App.Current.Shutdown();
+        }
 
         private RelayCommand _MohyoCommand;
         public RelayCommand MohyoCommand
@@ -51,8 +64,11 @@ namespace MohyoButton.ViewModels
                 {
                     var keyInfo = Models.KeyParser.ReadKey("keyinfo.xml");
 
-                    if (keyInfo.CountMessage !=null)
+                    if (!string.IsNullOrWhiteSpace(keyInfo.CountMessage))
                         App.CountMessage = keyInfo.CountMessage;
+
+                    if (!string.IsNullOrWhiteSpace(keyInfo.UserWordListName))
+                        App.UserWordListName = keyInfo.UserWordListName;
 
                     App.PostCountMessage = keyInfo.PostCountMessage;
                     App.Token = Tokens.Create(keyInfo.ConsumerKey, keyInfo.ConsumerSecret, keyInfo.AccessToken, keyInfo.AccessTokenSecret);
@@ -85,8 +101,10 @@ namespace MohyoButton.ViewModels
                 else
                     res = mohyoTweet.Post(App.Token);
 
-                res.ContinueWith((r) => {
-                    try {
+                res.ContinueWith((r) =>
+                {
+                    try
+                    {
                         if (r.Result == null)
                         {
                             App.Current.Dispatcher.InvokeAsync(() => new WpfMessageBox("もひょれませんでした").Show());
@@ -96,7 +114,8 @@ namespace MohyoButton.ViewModels
                             App.Current.Dispatcher.InvokeAsync(() => new WpfMessageBox("もひょりました").Show());
                         }
                     }
-                    catch {
+                    catch
+                    {
                         App.Current.Dispatcher.InvokeAsync(() => new WpfMessageBox("もひょれませんでした").Show());
                     }
                 });

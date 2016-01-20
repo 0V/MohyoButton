@@ -31,13 +31,13 @@ namespace MohyoButton.Models
             }
         }
 
-        public static void WriteKey(string fileName, CoreTweet.Tokens tokens,string countMessage,bool postCountMessage)
+        public static void WriteKey(string fileName, CoreTweet.Tokens tokens, string countMessage, bool postCountMessage, string userWordListName)
         {
-            var keyInfo = TokensToKeyInfo(tokens, countMessage, postCountMessage);
-            WriteKey(fileName,keyInfo);
+            var keyInfo = TokensToKeyInfo(tokens, countMessage, postCountMessage, userWordListName);
+            WriteKey(fileName, keyInfo);
         }
 
-        public static KeyInfo TokensToKeyInfo(CoreTweet.Tokens tokens,string countMessage,bool postCountMessage)
+        public static KeyInfo TokensToKeyInfo(CoreTweet.Tokens tokens, string countMessage, bool postCountMessage, string userWordListName)
         {
             var info = new KeyInfo();
             info.AccessToken = tokens.AccessToken;
@@ -46,6 +46,7 @@ namespace MohyoButton.Models
             info.ConsumerSecret = tokens.ConsumerSecret;
             info.CountMessage = countMessage;
             info.PostCountMessage = postCountMessage;
+            info.UserWordListName = userWordListName;
             return info;
         }
     }
