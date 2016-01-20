@@ -31,24 +31,21 @@ namespace MohyoButton.Models
             }
         }
 
-        public static void WriteKey(string fileName, CoreTweet.Tokens tokens)
+        public static void WriteKey(string fileName, CoreTweet.Tokens tokens,string countMessage,bool postCountMessage)
         {
-            var keyInfo = TokensToKeyInfo(tokens);
-            var serializer = new XmlSerializer(typeof(KeyInfo));
-            using (var streamWriter = new StreamWriter(
-                fileName, false, new UTF8Encoding(false)))
-            {
-                serializer.Serialize(streamWriter, keyInfo);
-            }
+            var keyInfo = TokensToKeyInfo(tokens, countMessage, postCountMessage);
+            WriteKey(fileName,keyInfo);
         }
 
-        public static KeyInfo TokensToKeyInfo(CoreTweet.Tokens tokens)
+        public static KeyInfo TokensToKeyInfo(CoreTweet.Tokens tokens,string countMessage,bool postCountMessage)
         {
             var info = new KeyInfo();
             info.AccessToken = tokens.AccessToken;
             info.AccessTokenSecret = tokens.AccessTokenSecret;
             info.ConsumerKey = tokens.ConsumerKey;
             info.ConsumerSecret = tokens.ConsumerSecret;
+            info.CountMessage = countMessage;
+            info.PostCountMessage = postCountMessage;
             return info;
         }
     }

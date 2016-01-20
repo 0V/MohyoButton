@@ -9,10 +9,9 @@ namespace MohyoButton.Models
 {
     public class MohyoTweet
     {
-        private static MT19937 mt = new MT19937((uint)(DateTime.Now.ToFileTimeUtc() % uint.MaxValue));
-
-        private static List<string> _MohyoStrings =
-            new List<string> {
+        public MohyoTweet()
+        {
+            _MohyoStrings = new List<string> {
                 "もひょ",
                 "もひょっ",
                 "もひょぉ",
@@ -25,32 +24,66 @@ namespace MohyoButton.Models
                 "~(´ω`~)もひょ",
                 "(～＞ω＜)～もひょ",
                 "～(＞ω＜～)もひょ",
-                "～(＞ω＜)～もひょ",
+                "～(・ω・～)もひょ",
+                "(～・ω・)～もひょ",
                 "進捗もひょです",
-                "Mohyo",
                 "mohyo",
                 "むいっ",
+                "むきゅーっ",
             };
+        }
 
-        public static List<string> MohyoStrings{
-            get {return _MohyoStrings; }
+        public MohyoTweet(IEnumerable<string> wordList)
+        {
+            if (!wordList.Any(x=>!string.IsNullOrWhiteSpace(x)))
+                throw new ArgumentNullException();
+
+            _MohyoStrings = wordList.ToList();
+        }
+
+        private MT19937 mt = new MT19937((uint)(DateTime.Now.ToFileTimeUtc() % uint.MaxValue));
+
+        private List<string> _MohyoStrings;
+        public List<string> MohyoStrings
+        {
+            get { return _MohyoStrings; }
             private set { _MohyoStrings = value; }
         }
 
-        public static Task<StatusResponse> Post(Tokens tokens)
+        public Task<StatusResponse> Post(Tokens tokens)
         {
-            try {
+            try
+            {
+                App.MohyoCount++;
                 var res = tokens.Statuses.UpdateAsync(status => MohyoStrings[GetRandomNumber()]);
                 return res;
             }
             catch (TwitterException ex)
             {
+                App.MohyoCount--;
                 new WpfMessageBox(ex.Message).Show();
                 return null;
             }
         }
 
-        private static int GetRandomNumber()
+        public Task<StatusResponse> Post(Tokens tokens, string addMessage)
+        {
+            try
+            {
+                App.MohyoCount++;
+                addMessage = addMessage.Replace("[COUNT]", App.MohyoCount.ToString());
+                var res = tokens.Statuses.UpdateAsync(status => MohyoStrings[GetRandomNumber()] + addMessage);
+                return res;
+            }
+            catch (TwitterException ex)
+            {
+                App.MohyoCount--;
+                new WpfMessageBox(ex.Message).Show();
+                return null;
+            }
+        }
+
+        private int GetRandomNumber()
         {
             return Math.Abs((int)mt.GetInt32() % MohyoStrings.Count);
         }

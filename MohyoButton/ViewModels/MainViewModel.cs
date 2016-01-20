@@ -5,10 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreTweet;
 using System.Xml;
+using System.IO;
+
 namespace MohyoButton.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        private Models.MohyoTweet mohyoTweet;
+
+        public MainViewModel()
+        {
+            string wordsFileName = "words.txt";
+            try {
+                var list = Models.WordFileLoad.Load(wordsFileName);
+                if (list.Any(x => !string.IsNullOrWhiteSpace(x)))
+                {
+                    new WpfMessageBox(wordsFileName + " から単語を読み込みました。").Show();
+                    mohyoTweet = new Models.MohyoTweet(list);
+                }
+                else
+                {
+                    mohyoTweet = new Models.MohyoTweet();
+                }
+            }
+            catch (FileLoadException fe) {
+                mohyoTweet = new Models.MohyoTweet();
+            }
+
+        }
+
+
+
         private RelayCommand _MohyoCommand;
         public RelayCommand MohyoCommand
         {
@@ -23,6 +50,11 @@ namespace MohyoButton.ViewModels
                 try
                 {
                     var keyInfo = Models.KeyParser.ReadKey("keyinfo.xml");
+
+                    if (keyInfo.CountMessage !=null)
+                        App.CountMessage = keyInfo.CountMessage;
+
+                    App.PostCountMessage = keyInfo.PostCountMessage;
                     App.Token = Tokens.Create(keyInfo.ConsumerKey, keyInfo.ConsumerSecret, keyInfo.AccessToken, keyInfo.AccessTokenSecret);
                 }
                 catch (Exception ex)
@@ -46,7 +78,13 @@ namespace MohyoButton.ViewModels
             }
             else
             {
-                var res = Models.MohyoTweet.Post(App.Token);
+                Task<StatusResponse> res;
+
+                if (App.PostCountMessage)
+                    res = mohyoTweet.Post(App.Token, App.CountMessage);
+                else
+                    res = mohyoTweet.Post(App.Token);
+
                 res.ContinueWith((r) => {
                     try {
                         if (r.Result == null)

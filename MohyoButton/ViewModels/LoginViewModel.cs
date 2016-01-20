@@ -24,12 +24,11 @@ namespace MohyoButton.ViewModels
 
             try
             {
-
                 var pin = text.Text;
                 var token = OAuth.GetTokensAsync(App.Session, pin);
                 App.Token = token.Result;
                 new WpfMessageBox("認証に成功しました", MessageBoxButton.OK).ShowDialog();
-                Models.KeyParser.WriteKey("keyinfo.xml",App.Token);
+                Models.KeyParser.WriteKey("keyinfo.xml",App.Token,App.CountMessage,App.PostCountMessage);
                 Window.GetWindow(text).Close();
             }
             catch

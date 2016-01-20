@@ -20,15 +20,26 @@ namespace MohyoButton
 
         public const string ConsumerKey = "yQLCCq8XjKUes6kzptst06LYD";
         public const string ConsumerSecret = "l2OEujoHJMgdME7uwLSbNzhQ73ImKKVjpSI7uDSr7tZPXaEJSp";
+        public const string DefaultCountMessage = " ([COUNT]回もひょりました)";
 
         public static Tokens Token { get; set; }
         public static OAuth.OAuthSession Session { get; set; }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private static string _CountMessage = DefaultCountMessage;
+        public static string CountMessage { get { return _CountMessage; } set { _CountMessage = value; } }
+
+        private static bool _PostCountMessage = true;
+        public static bool PostCountMessage { get { return _PostCountMessage; } set { _PostCountMessage = value; } }
+
+        public static int MohyoCount
+        {
+            get { return MohyoButton.Properties.Settings.Default.MohyoCount; }
+            set { MohyoButton.Properties.Settings.Default.MohyoCount = value; }
+        }
+private void Application_Startup(object sender, StartupEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException += ((_sender, _e) =>
                 ShowErrorMessage((Exception)_e.ExceptionObject));
-
         }
 
         /// <summary>

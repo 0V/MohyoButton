@@ -60,7 +60,7 @@
             <Grid>
                 <Ellipse x:Name="BlurEllipse" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" Fill="{TemplateBinding Background}">
                     <Ellipse.Effect>
-                        <BlurEffect Radius="20"/>
+                        <BlurEffect Radius="10"/>
                     </Ellipse.Effect>
                 </Ellipse>
                 <Ellipse HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" Fill="{TemplateBinding Background}">
@@ -99,12 +99,12 @@
         </ControlTemplate>
     </Window.Resources>
     <Grid>
-        <Button x:Name="MohyoButton" Command="{Binding MohyoCommand}" Cursor="Hand" Content="(～＞ω＜)～" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="80" Template="{DynamicResource MohyoButtonTemplate}" Background="#FF0068FF" Margin="60,0,0,40">
+        <Button x:Name="MohyoButton" Command="{Binding MohyoCommand}" Cursor="Hand" Content="(～＞ω＜)～" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="80" Template="{DynamicResource MohyoButtonTemplate}" Background="#FF0022FF" Margin="60,0,0,40">
         </Button>
         <Grid HorizontalAlignment="Right" Margin="0,0,45,83" VerticalAlignment="Bottom" Width="60" Height="60" MouseLeftButtonDown="DragButton_MouseLeftButtonDown">
             <Ellipse x:Name="BlurEllipse" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" Fill="#FFFF5D00">
                 <Ellipse.Effect>
-                    <BlurEffect Radius="20"/>
+                    <BlurEffect Radius="10"/>
                 </Ellipse.Effect>
             </Ellipse>
             <Ellipse HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" Fill="#FFFF5D00">
