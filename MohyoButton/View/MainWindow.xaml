@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:MohyoButton.ViewModels"
         mc:Ignorable="d"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None" Topmost="True" 
-        Foreground="#BBFFFFFF" ResizeMode="NoResize"
-        Title="MainWindow" Height="200" Width="220">
+        Foreground="#BBFFFFFF" ResizeMode="NoResize" 
+        Title="MainWindow" Height="200" Width="220" Closing="Window_Closing">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>

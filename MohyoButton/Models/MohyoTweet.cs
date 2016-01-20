@@ -72,8 +72,8 @@ namespace MohyoButton.Models
             }
             catch (TwitterException ex)
             {
-                App.MohyoCount--;
-                new WpfMessageBox(ex.Message).Show();
+//                App.MohyoCount--;
+//                new WpfMessageBox(ex.Message).Show();
                 return null;
             }
         }
@@ -97,8 +97,8 @@ namespace MohyoButton.Models
             }
             catch (TwitterException ex)
             {
-                App.MohyoCount--;
-                new WpfMessageBox(ex.Message).Show();
+//                App.MohyoCount--;
+//                new WpfMessageBox(ex.Message).Show();
                 return null;
             }
         }

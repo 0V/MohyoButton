@@ -47,7 +47,9 @@ namespace MohyoButton.ViewModels
 
         public void Close(object obj)
         {
-            App.Current.Shutdown();
+            MohyoButton.Properties.Settings.Default.Save();
+            App.Current.Shutdown(0);
+            Environment.Exit(0);
         }
 
         private RelayCommand _MohyoCommand;
@@ -112,6 +114,7 @@ namespace MohyoButton.ViewModels
                         if (r.Result == null)
                         {
                             App.Current.Dispatcher.InvokeAsync(() => new WpfMessageBox("もひょれませんでした").Show());
+                            App.MohyoCount--;
                         }
                         else
                         {
@@ -121,6 +124,7 @@ namespace MohyoButton.ViewModels
                     catch
                     {
                         App.Current.Dispatcher.InvokeAsync(() => new WpfMessageBox("もひょれませんでした").Show());
+                        App.MohyoCount--;
                     }
                 });
             }
