@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None" Topmost="True" 
         Foreground="#BBFFFFFF" ResizeMode="NoResize" 
-        Title="MainWindow" Height="200" Width="220" Closing="Window_Closing">
+        Title="MainWindow" Height="133.5" Width="139.5">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
@@ -88,7 +88,7 @@
                                     <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
                                 </DoubleAnimationUsingKeyFrames>
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.Effect).(BlurEffect.Radius)" Storyboard.TargetName="BlurEllipse">
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="60"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="40"/>
                                 </DoubleAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
@@ -99,12 +99,11 @@
         </ControlTemplate>
     </Window.Resources>
     <Grid>
-        <Button x:Name="Close" Command="{Binding CloseCommand}" Cursor="Hand" Content="Close" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="57" Height="57"  Background="#FFFF0000" Margin="123,0,0,40" Template="{DynamicResource MohyoButtonTemplate}" FontSize="20">
+        <Button x:Name="Close" Command="{Binding CloseCommand}" Cursor="Hand" Content="Close" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="58" Height="57"  Background="#FFFF0000" Margin="62,0,0,16" Template="{DynamicResource MohyoButtonTemplate}" FontSize="20">
         </Button>
 
-        <Button x:Name="MohyoButton" Command="{Binding MohyoCommand}" Cursor="Hand" Content="(～＞ω＜)～" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="80" Template="{DynamicResource MohyoButtonTemplate}" Background="#FF0022FF" Margin="60,0,0,40">
-        </Button>
-        <Grid HorizontalAlignment="Right" Margin="0,0,40,83" VerticalAlignment="Bottom" Width="60" Height="60" MouseLeftButtonDown="DragButton_MouseLeftButtonDown">
+        <Button x:Name="MohyoButton" Command="{Binding MohyoCommand}" Cursor="Hand" Content="(～＞ω＜)～" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="80" Template="{DynamicResource MohyoButtonTemplate}" Background="#FF0022FF" Margin="10,0,0,42"/>
+        <Grid HorizontalAlignment="Right" Margin="0,-1,9,75" VerticalAlignment="Bottom" Width="60" Height="60" MouseLeftButtonDown="DragButton_MouseLeftButtonDown">
             <Ellipse x:Name="BlurEllipse" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" Fill="#FFFF5D00">
                 <Ellipse.Effect>
                     <BlurEffect Radius="10"/>
