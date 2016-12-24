@@ -37,7 +37,7 @@ namespace MohyoButton.ViewModels
                 mohyoTweet = new Models.MohyoTweet();
             }
         }
-        
+
         private RelayCommand _CloseCommand;
         public RelayCommand CloseCommand
         {
@@ -113,8 +113,8 @@ namespace MohyoButton.ViewModels
                     {
                         if (r.Result == null)
                         {
+                            if (!mohyoTweet.PostFromUserList) App.MohyoCount--;
                             App.Current.Dispatcher.InvokeAsync(() => new WpfMessageBox("もひょれませんでした").Show());
-                            App.MohyoCount--;
                         }
                         else
                         {
@@ -123,8 +123,8 @@ namespace MohyoButton.ViewModels
                     }
                     catch
                     {
+                        if (!mohyoTweet.PostFromUserList) App.MohyoCount--;
                         App.Current.Dispatcher.InvokeAsync(() => new WpfMessageBox("もひょれませんでした").Show());
-                        App.MohyoCount--;
                     }
                 });
             }
