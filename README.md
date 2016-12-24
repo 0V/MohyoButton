@@ -7,7 +7,7 @@ MohyoButton
 ### Windows  
 下のDOWNLOADをクリックするとダウンロードが始まります。  
   
-[DOWNLOAD](https://github.com/0V/MohyoButton/releases/download/1.1.1/MohyoButton1.1.1.zip)
+[DOWNLOAD](https://github.com/0V/MohyoButton/releases/download/1.1.2/MohyoButton1.1.2.zip)
   
   
 ## 使い方
