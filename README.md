@@ -39,7 +39,7 @@ keyinfo.xml に記述されているパラメータです。
 例. [COUNT]回もひょったもひょ！  
   
 * PostCountMessage  
-CountMessage で設定した内容を実際に追記するかどうかを真偽地で指定します。  
+CountMessage で設定した内容を実際に追記するかどうかを真偽値で指定します。  
 true:追記する false:追記しない  
   
 * UserWordListName  
